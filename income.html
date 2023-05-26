@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0">
+  <title>我的收益</title>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/bootstrap-icons.css" rel="stylesheet">
+  <link href="./css/base.css" rel="stylesheet">
+</head>
+
+<body class="income">
+  <div class="navbar">
+    <a href="PaymentPageNativeClose">
+      <img src="./image/arrow_left.png" alt="arrow">
+    </a>
+    <h1>我的收入</h1>
+    <a></a>
+  </div>
+  <div class="content">
+    <div class="row total">
+      <div class="col">
+        <div class="diamonds">
+          <!-- <img src="./image/income_bg1.png" alt="diamonds"> -->
+          <div class="info">
+            <p class="p1"><span>钻石</span><i class="bi bi-question-circle" data-toggle="modal" data-target="#exampleModal"></i></p>
+            <p class="p2"><span id="diamonds_total"></span></p>
+            <p class="p3">=$<span id="diamonds_dollar"></span></p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col">
+        <div class="coins">
+          <img src="./image/income_bg2.png" alt="coins">
+        </div>
+      </div> -->
+    </div>
+    <!-- <div class="wallet">
+      <div class="title">
+        <strong><span>My Wallet</span></strong>
+        <i class="bi bi-question-circle"></i>
+      </div>
+      <div class="number">
+        <span>$23090</span>
+      </div>
+      <img src="./image/arrow_right_light.png" alt="arrow">
+    </div> -->
+
+    <ul class="today">
+      <li class="th">
+        <p><span>今天</span></p>
+        <a id="dailyReportHref"><span>更多</span><i class="bi bi-chevron-right"></i></a>
+      </li>
+      <li class="tr">
+        <label for="">钻石总数</label>
+        <p><span id="today_total_diamonds">0</span></p>
+      </li>
+      <!-- <li class="tr">
+        <label for="">Total Coins</label>
+        <p><span>0</span></p>
+      </li> -->
+      <li class="tr">
+        <label for="">消息</label>
+        <p><span id="today_total_message">11</span></p>
+        <i class="bi bi-chevron-right"></i>
+      </li>
+      <li class="tr">
+        <label for="">通话时长</label>
+        <p><span id="today_call_duration">0</span><span>/mins</span></p>
+        <i class="bi bi-chevron-right"></i>
+      </li>
+    </ul>
+
+    <ul class="menus">
+      <li>
+        <a id="incomeRecordHref">
+          <span>收入明细</span>
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      <li>
+        <a id="salaryRecordHref">
+          <span>结算明细</span>
+          <i class="bi bi-chevron-right"></i>
+        </a>
+      </li>
+      <li>
+        <a>
+          <span>我的代理</span>
+          <span>
+            <em id="agent_name">aaa</em>
+            <br/>
+            <em id="agent_phone">+86 188***3456</em>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <p class="p1"><span id="contact"></span></p>
+    <p class="p2">ID: <span id="uid"></span></p>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center modal-content">
+        <h4>虚拟收入和现金的转换</h4>
+        <p id="diamonds_exchange">123</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/base.js"></script>
+<script>
+  var params = GetRequest();
+  var Authorization = params.token;
+  var uid = params.uid;
+  var apiUrl = `${baseUrl}/account/income`;
+
+  function queryData(pageIndex, isAppend) {
+    $.ajax({
+      url: apiUrl,
+      type: 'GET',
+      headers: {
+        "Authorization": Authorization,
+        "lang": "en"
+      },
+      success: function (data) {
+        renderData(data);
+      },
+      error: function(e) {
+        renderData(mockData.income);
+      }
+    });
+  }
+
+  function renderData(data) {
+    $('#diamonds_total').html(data.diamonds);
+    $('#diamonds_dollar').html(data.diamonds_dollar);
+    $('#today_total_diamonds').html(data.today_data.total_diamonds);
+    $('#today_total_message').html(data.today_data.messages);
+    $('#today_call_duration').html(data.today_data.call_duration);
+    $('#agent_name').html(data.agent_name);
+    $('#agent_phone').html(data.agent_phone);
+    $('#contact').html(data.contact);
+    $('#uid').html(uid);
+    $('#diamonds_exchange').html(data.exchange_text.diamond);
+    $('#dailyReportHref').attr('href', `./daily-report.html?uid=${uid}&token=${params.token}`);
+    $('#incomeRecordHref').attr('href', `./income-record.html?uid=${uid}&token=${params.token}`);
+    $('#salaryRecordHref').attr('href', `./salary-record.html?uid=${uid}&token=${params.token}`);
+  }
+
+  $(function () {
+    queryData();
+  });
+
+
+</script>
+
+</html>

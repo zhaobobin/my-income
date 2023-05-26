@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0">
+  <title>日报</title>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/bootstrap-icons.css" rel="stylesheet">
+  <link href="./css/bootstrap-table.min.css" rel="stylesheet">
+  <link href="./css/bootstrap-table-fixed-columns.min.css" rel="stylesheet">
+  <link href="./css/base.css" rel="stylesheet">
+  <link href="./css/mpicker.css" rel="stylesheet">
+</head>
+
+<body class="daily">
+  <div class="navbar">
+    <a id="goBackHref">
+      <img src="./image/arrow_left.png" alt="arrow">
+    </a>
+    <h1>日报</h1>
+    <a></a>
+  </div>
+  <div class="head">
+    <p class="filter" id="filter"><span>选择</span><i class="bi bi-funnel"></i></p>
+    <p class="id">ID: <span id="uid"></span></p>
+  </div>
+  <div class="table">
+    <table id="table"></table>
+  </div>
+</body>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/bootstrap-table.min.js"></script>
+<script src="./js/bootstrap-table-fixed-columns.min.js"></script>
+<script src="./js/mPicker.min.js"></script>
+<script src="./js/base.js"></script>
+<script>
+  var params = GetRequest();
+  var Authorization = params.token;
+  var uid = params.uid;
+  var date = getCurrentMonth();
+
+  var $datepicker = $('#datepicker');
+  var $table = $('#table');
+
+  var columns = [
+    {
+      title: '日期',// 表头字段名
+      field: 'deal_date',// 数据 key
+      align: 'center',// 居中
+      width: 100,
+      // sortable: true,// 排序
+      formatter: function (value, row, index) {
+        return '<a>' + value + '<i class="bi bi-chevron-right"></i></a>';
+      }
+    },
+    {
+      title: '总计</br>钻石',
+      field: 'total_diamonds',
+      align: 'center',
+      width: 100,
+    },
+    {
+      title: '信息',
+      field: 'messages',
+      align: 'center',
+      width: 100,
+    },
+    {
+      title: '通话</br>持续时间',
+      field: 'task_reward',
+      align: 'center',
+      width: 150,
+    },
+    {
+      title: '消息</br>已发送',
+      field: 'msg_send_count',
+      align: 'center',
+      width: 150,
+    },
+    {
+      title: '消息</br>已收到',
+      field: 'msg_receive_count',
+      align: 'center',
+      width: 150,
+    }
+  ];
+
+  function queryDaily(date) {
+    $.ajax({
+      url: `${baseUrl}/account/incomeRecord?date=${date}`,
+      type: 'GET',
+      headers: {
+        "Authorization": Authorization,
+        "lang": "en"
+      },
+      success: function (data) {
+        initTable(data.list);
+      },
+      error: function (e) {
+        initTable(mockData.dailyReport.reverse())
+      }
+    });
+  }
+
+  function initTable(data) {
+    // 先销毁再创建
+    $table.bootstrapTable('destroy').bootstrapTable({
+      fixedColumns: true,
+      fixedNumber: 1, //固定列数
+      data: data,  // 表格数据
+      columns: columns,
+      onClickCell: function (field, value, row, $element) {
+        if (field === 'id') {
+          console.log(field, value);
+        }
+      }
+    });
+  }
+
+  $(function () {
+    queryDaily(date);
+
+    $('#goBackHref').attr('href', `./income.html?uid=${uid}&token=${params.token}`);
+    $('#uid').html(uid);
+    
+    $('#filter').click(function () {
+      $datepicker.addClass('show');
+    });
+    $('#cancel').click(function () {
+      $datepicker.removeClass('show');
+    });
+    $('#confirm').click(function () {
+      $datepicker.removeClass('show');
+    });
+
+    // 日期选择
+    var dateList = getAllDays(14);
+    $('#filter').mPicker({
+      level: 1,
+      dataJson: dateList,
+      Linkage: false,
+      rows: 6,
+      height: 44,
+      idDefault: true,
+      header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div><div class="date"><span id="startdate"></span><i></i><span id="enddate"></span></div></div>',
+      footer: '<div class="mPicker-footer"></div>',
+      confirm: function (json) {
+        var startdate = dateList[0];
+        var enddate = dateList[parseInt(json.ids)];
+        queryDaily(startdate);
+      },
+      cancel: function (json) {
+        console.info('当前选中json：', json);
+      }
+    })
+  });
+
+
+</script>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0">
+  <title>结算明细</title>
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/bootstrap-icons.css" rel="stylesheet">
+  <link href="./css/mescroll.min.css" rel="stylesheet">
+  <link href="./css/base.css" rel="stylesheet">
+  <style>
+    .current-date {
+      padding: 0 20px;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 28px;
+      background: #EFF0F4;
+    }
+
+    .outer {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      box-orient: vertical;
+      flex-direction: column;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .mescroll {
+      flex: 1;
+      background-color: #fff;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 20px;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: row;
+      padding: 20px 0;
+      border-bottom: 1px solid #EFF0F4;
+    }
+
+    .item .info {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .item .info .title {
+      margin-bottom: 5px;
+      line-height: 21px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .item .info .date {
+      font-size: 14px;
+      color: #999;
+    }
+
+    .item .number {
+      width: 20%;
+      /* text-align: right; */
+      line-height: 24px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: end;
+    }
+
+    .item .number font:first-child {
+      font-size: 18px;
+    }
+
+    .item .number font:last-child {
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body class="income">
+  <div class="outer">
+    <div class="navbar">
+      <a id="goBackHref">
+        <img src="./image/arrow_left.png" alt="arrow">
+      </a>
+      <h1>结算明细</h1>
+      <a></a>
+    </div>
+    <div class="current-date">
+      <p>2021.06.15</p>
+    </div>
+    <div class="mescroll" id="mescroll">
+      <ul class="lists" id="list">
+        <!-- <li class="item">
+          <div class="info">
+            <p class="title">Video chat earns 700 diamonds with seae</p>
+            <p class="date">2023-05-01 07:18:42</p>
+          </div>
+          <div class="number">
+            <font color="#FF6467">+700</font>
+            <font color="#FF6467">diamonds</font>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+</body>
+
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/mescroll.min.js"></script>
+<script src="./js/base.js"></script>
+<script>
+  var params = GetRequest();
+  var Authorization = params.token;
+  var uid = params.uid;
+  var date = "20230501";
+  var apiUrl = `${baseUrl}/account/salaryRecord`;
+  var record_type = 0;
+  var pageSize = 10;
+
+  $(function () {
+    $('#goBackHref').attr('href', `./income.html?uid=${uid}&token=${params.token}`);
+
+    //创建MeScroll对象
+    var mescroll = new MeScroll("mescroll", {
+      down: {
+        auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+        callback: downCallback //下拉刷新的回调
+      },
+      up: {
+        auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+        isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+        callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+        toTop: { //配置回到顶部按钮
+          src: "./image/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+          //offset : 1000
+        }
+      }
+    });
+
+    var $list = $('#list');
+    function queryList(pageIndex, isAppend) {
+      $.ajax({
+        url: `${apiUrl}?date=${date}`,
+        type: 'GET',
+        headers: {
+          "Authorization": Authorization,
+          "lang": "en"
+        },
+        success: function (data) {
+          var hasNext = data.list.length === pageSize;
+          mescroll.endSuccess(data.list.length, hasNext);
+          // renderData(data.list, isAppend);
+        },
+        error: function (e) {
+          //联网失败的回调,隐藏下拉刷新和上拉加载的状态
+          mescroll.endErr();
+          // renderData(mockData.salaryRecord, isAppend);
+        }
+      });
+    }
+
+    function renderData(curPageData, isAppend) {
+      var hasNext = curPageData.length === pageSize;
+      mescroll.endSuccess(curPageData.length, hasNext);
+      var str = '';
+      for (var i = 0; i < curPageData.length; i++) {
+        var newObj = curPageData[i];
+        var date = newObj.create_time.split('uid')[0];
+        str += '<li class="item">'
+          + '<div class="info">'
+          + '<p class="title">' + newObj.title + '</p>'
+          + '<p class="date">' + date + '</p>'
+          + '</div>'
+          + '<div class="number">' + newObj.content + '</div>'
+          + '</li>';
+      }
+      if (isAppend) {
+        $list.append(str);  //加在列表的后面,上拉加载
+      } else {
+        $list.html(str);  //加在列表的前面,下拉刷新
+      }
+    }
+
+    /*下拉刷新的回调 */
+    function downCallback() {
+      queryList(0, false);
+    }
+
+    /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+    function upCallback(page) {
+      queryList(page.num, true);
+    }
+
+  });
+
+</script>
+
+</html>

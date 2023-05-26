@@ -1,0 +1,289 @@
+body {
+  color: #333;
+  padding:
+    constant(safe-area-inset-top)
+    constant(safe-area-inset-right)
+    constant(safe-area-inset-bottom)
+    constant(safe-area-inset-left); /* 兼容 iOS < 11.2 */
+  padding:
+    env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left); /* 兼容 iOS >= 11.2 */
+}
+ul,
+li {
+  padding: 0;
+  list-style: none;
+}
+p {
+  margin: 0;
+}
+a:active {
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0;
+}
+.navbar a {
+  display: inline-block;
+  width: 60px;
+  height: 100%;
+  line-height: 60px;
+  text-align: center;
+}
+.navbar a img {
+  width: auto;
+  height: 24px;
+}
+.navbar h1 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #303030;
+  margin: 0;
+}
+
+.modal-dialog {
+  width: 85%;
+  margin: auto;
+}
+.modal-content {
+  padding: 20px 10px;
+  border-radius: 16px;
+  border: none;
+}
+.modal-content h4 {
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+/* income */
+.income .content {
+  padding: 0 20px 100px;
+}
+.income .content img {
+  width: 100%;
+  height: 120px;
+}
+.income .content .col {
+  padding: 0 8px;
+}
+.income .total {
+  padding: 0 6px;
+}
+.income .total .diamonds {
+  background: url(../image/income_bg1.png) no-repeat center center;
+  background-size: cover;
+  border-radius: 8px;
+  position: relative;
+}
+.income .total .diamonds .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  min-height: 138px;
+  /* width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0; */
+}
+.income .total .diamonds .info p {
+  padding-left: 30%;
+  color: #fff;
+}
+.income .total .diamonds .info p.p1 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.income .total .diamonds .info p.p1 span {
+  margin-right: 10px;
+}
+.income .total .diamonds .info p.p2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 600;
+}
+.income .total .diamonds .info p.p3 {
+  font-size: 16px;
+  color: #F4F4F4;
+}
+
+.income .wallet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px auto;
+  padding: 0 12px;
+  height: 52px;
+  color: #fff;
+  background: linear-gradient(270deg, #2B2B2B 0%, #666666 100%);
+  border-radius: 9px;
+}
+.income .wallet strong {
+  margin-right: 5px;
+  font-size: 15px;
+  font-weight: 600;
+}
+.income .wallet .number {
+  margin-right: 8px;
+  flex: 1;
+  font-size: 21px;
+  font-weight: 600;
+  text-align: right;
+}
+.income .wallet img {
+  width: auto;
+  height: 14px;
+}
+.income .today {
+  margin-top: 15px;
+  background: #FFF9FB;
+  border-radius: 8px;
+  border: 1px solid #FFE8EF;
+  overflow: hidden;
+}
+.income .today li:nth-child(even) {
+  background: #fff;
+}
+.income .today li.th {
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  position: relative;
+}
+.income .today li.th p {
+  font-size: 17px;
+  font-weight: 600;
+}
+.income .today li.th a {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: #666666;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.income .today li.tr {
+  display: flex;
+  flex-direction: row;
+  height: 38px;
+  line-height: 38px;
+  position: relative;
+}
+.income .today li.tr label {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  margin: 0;
+  border-right: 1px solid #F0D3DD;
+}
+.income .today li.tr p {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  margin: 0;
+}
+.income .today li.tr i {
+  position: absolute;
+  right: 8px;
+}
+.income .menus {
+  padding: 0 10px;
+}
+.income .menus li {
+  border-bottom: 1px solid #EFF0F4;
+}
+.income .menus li:last-child {
+  border: none;
+}
+.income .menus li a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  color: #333333;
+}
+.income .menus li a span {
+  font-size: 15px;
+}
+.income .menus li a em {
+  font-style: normal;
+  font-size: 13px;
+  color: #666666;
+}
+.income .footer {
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.income .footer .p1 {
+  font-size: 13px;
+  color: #FF6407;
+  line-height: 40px;
+}
+.income .footer .p2 {
+  font-size: 13px;
+  color: #FFFFFF;
+  background: #FF6407;
+  line-height: 24px;
+}
+/* income end! */
+
+/* daily report */
+.daily .head {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  height: 30px;
+  line-height: 30px;
+  background: #eef2f5;
+}
+.daily .head .filter span {
+  margin-right: 5px;
+}
+.daily .head .id {
+  color: #999;
+}
+
+.table {
+  table-layout: fixed;
+  word-break: break-all;
+}
+.table thead th {
+  font-weight: normal;
+}
+.bootstrap-table .fixed-table-container .table thead th .th-inner {
+  display: flex;
+  padding: 5px 12px;
+  height: 64px;
+  justify-content: center;
+  align-items: center;
+}
+.table tbody tr:nth-child(odd) {
+  background: #eef2f5;
+}
+.table tbody tr .bi-chevron-right {
+  display: inline-block;
+  margin-left: 10px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  color: #b2b3b5;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* daily report end! */

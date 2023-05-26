@@ -1,0 +1,245 @@
+[
+  //域名 http://api-account.lisaword.com
+  {
+    "index": 0,
+    "name": "account账户",
+    "desc": "支付消费",
+    "add_time": 1682058500,
+    "up_time": 1682058500,
+    "list": [
+      {
+        "query_path": {
+          "path": "/account/income", // 我的收益页面
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": false,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 220,
+        "method": "GET",
+        "catid": 6,
+        "title": "主播收益(我的收入页面)",
+        "path": "/account/income",
+        "project_id": 15,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "646caaf3a8b64b35972dcf61",
+            "name": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTAwMjY5MjYsImlhdCI6MTY4NDg0MjkyNiwidWlkIjoiNDIwMjAyMDc0In0.4DGbB0om0g3kF0QCLVrcqe4hEEwwn4LJDveo48wQR04"
+          },
+          {
+            "required": "1",
+            "_id": "646caaf3a8b64b35972dcf60",
+            "name": "lang",
+            "value": "en",
+            "example": "",
+            "desc": ""
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\n   \"code\": 200,\n   \"msg\": \"success\",\n   \"t\": 1684843212,\n   \"v\": \"1.0\",\n   \"data\": {\n      \"diamonds\": 1047844,\n      \"diamonds_dollar\": 26195,\n      \"golds\": 4960,\n      \"golds_dollar\": 50,\n      \"wallet_dollar\": 0,\n      \"today_data\": {\n         \"total_diamonds\": 1268,\n         \"total_golds\": 0,\n         \"messages\": 1,\n         \"call_duration\": 0,\n         \"gift_nums\": 2\n      },\n      \"agent_name\": \"ceshi1\",\n      \"agent_phone\": \"18611112222\",\n      \"exchange_text\": {\n         \"diamond\": [\n            \"10,000 ? = $ 2.5\"\n         ],\n         \"gold\": [\n            \"10,000 coins = $ 1\"\n         ]\n      },\n      \"contact\": \"Contact us:top.server.teamozo@gmail.com\"\n   }\n}",
+        "uid": 18,
+        "add_time": 1682058515,
+        "up_time": 1684843251,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/account/incomeRecord",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": false,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 227,
+        "method": "GET",
+        "catid": 6,
+        "title": "主播收益流水（收入明细页面）",
+        "path": "/account/incomeRecord",
+        "project_id": 15,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "646ca9f1a8b64b35972dcf51",
+            "name": "page",
+            "example": "1",
+            "desc": ""
+          },
+          {
+            "required": "1",
+            "_id": "646ca9f1a8b64b35972dcf50",
+            "name": "size",
+            "example": "10",
+            "desc": ""
+          },
+          {
+            "required": "1",
+            "_id": "646ca9f1a8b64b35972dcf4f",
+            "name": "date",
+            "example": "20210615",
+            "desc": "月传入202106 ，按天传入20210601"
+          },
+          {
+            "required": "1",
+            "_id": "646ca9f1a8b64b35972dcf4e",
+            "name": "record_type",
+            "example": "1",
+            "desc": "1im 2video 3gift 0全部"
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "646ca9f1a8b64b35972dcf53",
+            "name": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTAwMjY5MjYsImlhdCI6MTY4NDg0MjkyNiwidWlkIjoiNDIwMjAyMDc0In0.4DGbB0om0g3kF0QCLVrcqe4hEEwwn4LJDveo48wQR04"
+          },
+          {
+            "required": "1",
+            "_id": "646ca9f1a8b64b35972dcf52",
+            "name": "lang",
+            "value": "en",
+            "example": "",
+            "desc": ""
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\n   \"code\": 200,\n   \"msg\": \"success\",\n   \"t\": 1684842977,\n   \"v\": \"1.0\",\n   \"data\": {\n      \"list\": [\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+70</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-23 10:48:34\",\n            \"title\": \"[earning]- Reply to <strong>Vghg</strong>\"\n         },\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+133</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-21 11:05:56\",\n            \"title\": \"[earning]- Reply to <strong>Vghg</strong>\"\n         },\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+70</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-21 09:45:21\",\n            \"title\": \"[earning]- Reply to <strong>Vghg</strong>\"\n         },\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+280</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-21 09:42:58\",\n            \"title\": \"[earning]- Reply to <strong>Vghg</strong>\"\n         },\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+70</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-21 06:39:38\",\n            \"title\": \"[earning]- Reply to <strong>Vghg</strong>\"\n         },\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+1337</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-21 06:38:31\",\n            \"title\": \"[earning]- Reply to <strong>Vghg</strong>\"\n         },\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+70</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-21 02:32:47\",\n            \"title\": \"[earning]- Reply to <strong>Vghg</strong>\"\n         },\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+133</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-21 02:31:15\",\n            \"title\": \"[earning]- Reply to <strong>Vghg</strong>\"\n         },\n         {\n            \"content\": \"<font color=\\\"#FF6467\\\">+266</font><br><font color=\\\"#FF6467\\\" size=\\\"15px\\\">diamonds</font>\",\n            \"create_time\": \"2023-05-18 13:32:31\",\n            \"title\": \"[earning]- Reply to <strong>seae</strong>\"\n         }\n      ]\n   }\n}",
+        "uid": 18,
+        "add_time": 1682058515,
+        "up_time": 1684842993,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/account/anchorDailyReport",
+          "params": []
+        },
+        "edit_uid": 0,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": false,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 234,
+        "method": "GET",
+        "catid": 6,
+        "title": "主播日报记录",
+        "path": "/account/anchorDailyReport", // 锚点日报
+        "project_id": 15,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "646cab28a8b64b35972dcf62",
+            "name": "date",
+            "example": "20210615",
+            "desc": "月传入202106，天的传入20210615"
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "646cab28a8b64b35972dcf64",
+            "name": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTAwMjY5MjYsImlhdCI6MTY4NDg0MjkyNiwidWlkIjoiNDIwMjAyMDc0In0.4DGbB0om0g3kF0QCLVrcqe4hEEwwn4LJDveo48wQR04"
+          },
+          {
+            "required": "1",
+            "_id": "646cab28a8b64b35972dcf63",
+            "name": "lang",
+            "value": "en",
+            "example": "",
+            "desc": ""
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\n   \"code\": 200,\n   \"msg\": \"success\",\n   \"t\": 1623847692,\n   \"v\": \"1.0\",\n   \"data\": {\n      \"list\": [\n         {\n            \"call_duration\": 100,\n            \"date\": 20210616,\n            \"deal_date\": \"06.16\",\n            \"gift_nums\": 28,\n            \"messages\": 10,\n            \"remark\": \"Today\",\n            \"total_diamonds\": 1992,\n            \"total_golds\": 120\n         },\n         {\n            \"call_duration\": 19,\n            \"date\": 20210615,\n            \"deal_date\": \"06.15\",\n            \"gift_nums\": 21,\n            \"messages\": 12,\n            \"remark\": \"Yesterday\",\n            \"total_diamonds\": 220,\n            \"total_golds\": 90\n         },\n         {\n            \"call_duration\": 28,\n            \"date\": 20210614,\n            \"deal_date\": \"06.14\",\n            \"gift_nums\": 12,\n            \"messages\": 29,\n            \"remark\": \"\",\n            \"total_diamonds\": 129,\n            \"total_golds\": 21\n         }\n      ]\n   }\n}",
+        "uid": 18,
+        "add_time": 1682058516,
+        "up_time": 1684843304,
+        "__v": 0
+      },
+      {
+        "query_path": {
+          "path": "/account/salaryRecord", // 薪水
+          "params": []
+        },
+        "edit_uid": 18,
+        "status": "done",
+        "type": "static",
+        "req_body_is_json_schema": false,
+        "res_body_is_json_schema": false,
+        "api_opened": false,
+        "index": 0,
+        "tag": [],
+        "_id": 304,
+        "method": "GET",
+        "catid": 6,
+        "title": "结算记录",
+        "path": "/account/salaryRecord",
+        "project_id": 15,
+        "req_params": [],
+        "res_body_type": "json",
+        "req_query": [
+          {
+            "required": "1",
+            "_id": "644b3d7f83b932422401cd2d",
+            "name": "date",
+            "example": "202106",
+            "desc": "年月"
+          }
+        ],
+        "req_headers": [
+          {
+            "required": "1",
+            "_id": "644b3d7f83b932422401cd2f",
+            "name": "Authorization",
+            "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjkwMjk1NjgsImlhdCI6MTYyMzg0NTU2OCwidWlkIjoiMjYxMDExMzMifQ.WSm8f-UXgBvqOy3sv7cthZX0tX04Do_XLKNhtHFx1sk\t"
+          },
+          {
+            "required": "1",
+            "_id": "644b3d7f83b932422401cd2e",
+            "name": "lang",
+            "value": "en",
+            "example": "",
+            "desc": ""
+          }
+        ],
+        "req_body_form": [],
+        "desc": "",
+        "markdown": "",
+        "res_body": "{\n   \"code\": 200,\n   \"msg\": \"success\",\n   \"t\": 1682652469,\n   \"v\": \"1.0\",\n   \"data\": {\n      \"list\": [\n         {\n            \"date\": \"2023-04-19 10:03:06\",\n            \"diamonds\": 200139,\n            \"diamonds_dollar\": 12500,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 88,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 12500\n         },\n         {\n            \"date\": \"2023-04-18 10:23:08\",\n            \"diamonds\": 239999,\n            \"diamonds_dollar\": 14450,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 87,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 14450\n         },\n         {\n            \"date\": \"2023-04-18 09:43:43\",\n            \"diamonds\": 239999,\n            \"diamonds_dollar\": 14500,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 86,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 14500\n         },\n         {\n            \"date\": \"2023-04-18 09:24:52\",\n            \"diamonds\": 239999,\n            \"diamonds_dollar\": 14500,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 85,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 14500\n         },\n         {\n            \"date\": \"2023-04-18 08:55:44\",\n            \"diamonds\": 239999,\n            \"diamonds_dollar\": 14500,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 84,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 14500\n         },\n         {\n            \"date\": \"2023-04-18 08:48:54\",\n            \"diamonds\": 15380,\n            \"diamonds_dollar\": 1125,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 83,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 1125\n         },\n         {\n            \"date\": \"2023-04-14 11:20:00\",\n            \"diamonds\": 659998,\n            \"diamonds_dollar\": 63750,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 21,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 63750\n         },\n         {\n            \"date\": \"2023-04-14 11:17:17\",\n            \"diamonds\": 319998,\n            \"diamonds_dollar\": 28250,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 20,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 28250\n         },\n         {\n            \"date\": \"2023-04-14 11:11:39\",\n            \"diamonds\": 159999,\n            \"diamonds_dollar\": 13750,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 19,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 13750\n         },\n         {\n            \"date\": \"2023-04-14 11:06:19\",\n            \"diamonds\": 159999,\n            \"diamonds_dollar\": 11250,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 18,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 11250\n         },\n         {\n            \"date\": \"2023-04-14 10:58:43\",\n            \"diamonds\": 159999,\n            \"diamonds_dollar\": 11250,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 17,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 11250\n         },\n         {\n            \"date\": \"2023-04-14 10:53:03\",\n            \"diamonds\": 179998,\n            \"diamonds_dollar\": 12750,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 16,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 12750\n         },\n         {\n            \"date\": \"2023-04-14 10:50:00\",\n            \"diamonds\": 105998,\n            \"diamonds_dollar\": 7500,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 15,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 7500\n         },\n         {\n            \"date\": \"2023-04-14 10:47:18\",\n            \"diamonds\": 195998,\n            \"diamonds_dollar\": 14250,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 14,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 14250\n         },\n         {\n            \"date\": \"2023-04-14 10:42:13\",\n            \"diamonds\": 105998,\n            \"diamonds_dollar\": 7500,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 13,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 7500\n         },\n         {\n            \"date\": \"2023-04-14 10:33:35\",\n            \"diamonds\": 118996,\n            \"diamonds_dollar\": 8250,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 12,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 8250\n         },\n         {\n            \"date\": \"2023-04-14 09:54:09\",\n            \"diamonds\": 38158,\n            \"diamonds_dollar\": 2250,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 11,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 2250\n         },\n         {\n            \"date\": \"2023-04-14 09:50:00\",\n            \"diamonds\": 38158,\n            \"diamonds_dollar\": 2250,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 10,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 2250\n         },\n         {\n            \"date\": \"2023-04-14 09:48:24\",\n            \"diamonds\": 38158,\n            \"diamonds_dollar\": 2250,\n            \"golds\": 0,\n            \"golds_dollar\": 0,\n            \"id\": 9,\n            \"invite_award_dollar\": 11250,\n            \"state\": \"Succeeded：\",\n            \"uid\": \"420202074\",\n            \"wallet\": 2250\n         }\n      ],\n      \"next_salary_date\": \"2023-05-02\",\n      \"text\": [\n         \"1. The system will cut off for you every week automatically.\",\n         \"2. Your wallet will receive your salary every Thursday.(lt may delay due to holidays)\",\n         \"3. The settlement amount must be >$10 and it should be integer multiple of$10. \",\n         \"The remainder will be accumulated and cashed out in following settlement cycle\"\n      ],\n      \"title\": \"Settlement Instrutions\",\n      \"floor_text\": \"Cut off will be processed within 48 hours\"\n   }\n}",
+        "uid": 18,
+        "add_time": 1682058520,
+        "up_time": 1682652543,
+        "__v": 0
+      }
+    ]
+  }
+]
