@@ -42,7 +42,7 @@ $(
       jsonValue: 'value',
       header: '<div class="mPicker-header"></div>',
       footer:
-        '<div class="mPicker-footer"><a href="javascript:;" class="mPicker-confirm">确定</a><a href="javascript:;" class="mPicker-cancel">取消</a></div>',
+        '<div class="mPicker-footer"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div>',
       confirm: function () {},
       cancel: function () {},
     };
@@ -406,7 +406,9 @@ $(
         B(D[z - 1], z - 1);
       }
     }
+    // 滚动放开后的事件
     function b(B, C) {
+      var dataJson = this.options.dataJson;
       var x;
       var D = Math.round(a(B) / this.options.height);
       var z =
@@ -421,6 +423,36 @@ $(
         .siblings('li')
         .removeClass('active');
       x = { target: B.find('li').eq(z), index: z };
+      var startdateDefaultText = '开始日期';
+      var enddateDefaultText = '结束日期';
+      var startdateHtml = $("#startdate").html();
+      if (!startdateHtml) {
+        $("#startdate").html(startdateDefaultText);
+        $("#enddate").html(enddateDefaultText);
+      }
+      if (startdateHtml === startdateDefaultText) {
+        console.log(dataJson[z].value)
+        $("#startdate").addClass('active').html(dataJson[z].name);
+        $("#filter").attr('selected-start', dataJson[z].value);
+      }
+      if (startdateHtml && startdateHtml !== startdateDefaultText) {
+        $("#enddate").addClass('active').html(dataJson[z].name);
+        $("#filter").attr('selected-end', dataJson[z].value);
+      }
+      var startdateIndex;
+      var enddateIndex;
+      dataJson.forEach(function(item, index) {
+        if (item.name === startdateHtml) {
+          startdateIndex = index;
+        }
+        if (startdateHtml && startdateHtml !== startdateDefaultText && item.name === dataJson[z].name) {
+          enddateIndex = index;
+        }
+      });
+      if (enddateIndex !== undefined && enddateIndex < startdateIndex) {
+        $("#enddate").html(startdateHtml);
+        m(B, -this.options.height * (startdateIndex - this.middleRowIndex));
+      }
       return x;
     }
     function f(z) {

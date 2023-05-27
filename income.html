@@ -123,8 +123,6 @@
 <script src="./js/base.js"></script>
 <script>
   var params = GetRequest();
-  var Authorization = params.token;
-  var uid = params.uid;
   var apiUrl = `${baseUrl}/account/income`;
 
   function queryData(pageIndex, isAppend) {
@@ -132,7 +130,7 @@
       url: apiUrl,
       type: 'GET',
       headers: {
-        "Authorization": Authorization,
+        "Authorization": params.token,
         "lang": "en"
       },
       success: function (data) {
@@ -153,11 +151,11 @@
     $('#agent_name').html(data.agent_name);
     $('#agent_phone').html(data.agent_phone);
     $('#contact').html(data.contact);
-    $('#uid').html(uid);
+    $('#uid').html(params.uid);
     $('#diamonds_exchange').html(data.exchange_text.diamond);
-    $('#dailyReportHref').attr('href', `./daily-report.html?uid=${uid}&token=${params.token}`);
-    $('#incomeRecordHref').attr('href', `./income-record.html?uid=${uid}&token=${params.token}`);
-    $('#salaryRecordHref').attr('href', `./salary-record.html?uid=${uid}&token=${params.token}`);
+    $('#dailyReportHref').attr('href', `./daily-report.html?uid=${params.uid}&token=${params.token}`);
+    $('#incomeRecordHref').attr('href', `./income-record.html?uid=${params.uid}&token=${params.token}`);
+    $('#salaryRecordHref').attr('href', `./salary-record.html?uid=${params.uid}&token=${params.token}`);
   }
 
   $(function () {

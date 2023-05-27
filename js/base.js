@@ -17,23 +17,39 @@ function GetRequest() {
 // 获取当前月
 function getCurrentMonth() {
   var date = new Date();
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  return year.toString() + month.toString();
+  var year = date.getFullYear().toString();
+  var month = (date.getMonth() + 1).toString();
+  if (month.length === 1) {
+    month = '0' + month;
+  }
+  return year + month;
+}
+
+// 生成年月选项
+function getYearList(n) {
+  var year = (new Date().getFullYear() - n).toString();
+  return { name: year, value: year, child: monthList };
 }
 
 // 生成日期选项
 function getAgoDay(n) {
   var date = new Date();
-  var seperator = "";
   var newDate = new Date(date.getTime() - n * 24 * 60 * 60 * 1000);
-  var year = newDate.getFullYear();
-  var month = newDate.getMonth() + 1;
-  var day = newDate.getDate();
+  var year = newDate.getFullYear().toString();
+  var month = (newDate.getMonth() + 1).toString();
+  var day = newDate.getDate().toString();
   // var en_mon_arr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Spt", "Oct", "Nov", "Dec"];
+  var monthValue = month;
+  var dayValue = day;
+  if (monthValue.length === 1) {
+    monthValue = '0' + monthValue;
+  }
+  if (dayValue.length === 1) {
+    dayValue = '0' + dayValue;
+  }
   return {
-    name: month.toString() + "-" + day.toString(),
-    value: year.toString() + seperator + month.toString() + seperator + day.toString()
+    name: month + '-' + day,
+    value: year + monthValue + dayValue,
   };
 }
 
@@ -44,6 +60,29 @@ function getAllDays(n) {
   }
   return dayList;
 }
+
+function getAllYears(n) {
+  var yearList = [];
+  for (var i = n; i > 0; i--) {
+    yearList.push(getYearList(i));
+  }
+  return yearList;
+}
+
+var monthList = [
+  { name: '01', value: '01' },
+  { name: '02', value: '02' },
+  { name: '03', value: '03' },
+  { name: '04', value: '04' },
+  { name: '05', value: '05' },
+  { name: '06', value: '06' },
+  { name: '07', value: '07' },
+  { name: '08', value: '08' },
+  { name: '09', value: '09' },
+  { name: '10', value: '10' },
+  { name: '11', value: '11' },
+  { name: '12', value: '12' },
+];
 
 const mockData = {
   income: {
@@ -507,7 +546,272 @@ const mockData = {
     },
   ],
   salaryRecord: {
-    list: null,
+    list: [
+      {
+        date: '2023-04-28 13:28:39',
+        diamonds: 99999,
+        diamonds_dollar: 2475,
+        golds: 0,
+        golds_dollar: 0,
+        id: 130,
+        invite_award_dollar: 5434,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 7909,
+      },
+      {
+        date: '2023-04-28 13:25:29',
+        diamonds: 0,
+        diamonds_dollar: 0,
+        golds: 0,
+        golds_dollar: 0,
+        id: 129,
+        invite_award_dollar: 4533,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 4533,
+      },
+      {
+        date: '2023-04-28 13:12:40',
+        diamonds: 0,
+        diamonds_dollar: 2344,
+        golds: 0,
+        golds_dollar: 0,
+        id: 128,
+        invite_award_dollar: 2344,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 4688,
+      },
+      {
+        date: '2023-04-19 10:03:06',
+        diamonds: 200139,
+        diamonds_dollar: 12500,
+        golds: 0,
+        golds_dollar: 0,
+        id: 88,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 12500,
+      },
+      {
+        date: '2023-04-18 10:23:08',
+        diamonds: 239999,
+        diamonds_dollar: 14450,
+        golds: 0,
+        golds_dollar: 0,
+        id: 87,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 14450,
+      },
+      {
+        date: '2023-04-18 09:43:43',
+        diamonds: 239999,
+        diamonds_dollar: 14500,
+        golds: 0,
+        golds_dollar: 0,
+        id: 86,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 14500,
+      },
+      {
+        date: '2023-04-18 09:24:52',
+        diamonds: 239999,
+        diamonds_dollar: 14500,
+        golds: 0,
+        golds_dollar: 0,
+        id: 85,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 14500,
+      },
+      {
+        date: '2023-04-18 08:55:44',
+        diamonds: 239999,
+        diamonds_dollar: 14500,
+        golds: 0,
+        golds_dollar: 0,
+        id: 84,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 14500,
+      },
+      {
+        date: '2023-04-18 08:48:54',
+        diamonds: 15380,
+        diamonds_dollar: 1125,
+        golds: 0,
+        golds_dollar: 0,
+        id: 83,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 1125,
+      },
+      {
+        date: '2023-04-14 11:20:00',
+        diamonds: 659998,
+        diamonds_dollar: 63750,
+        golds: 0,
+        golds_dollar: 0,
+        id: 21,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 63750,
+      },
+      {
+        date: '2023-04-14 11:17:17',
+        diamonds: 319998,
+        diamonds_dollar: 28250,
+        golds: 0,
+        golds_dollar: 0,
+        id: 20,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 28250,
+      },
+      {
+        date: '2023-04-14 11:11:39',
+        diamonds: 159999,
+        diamonds_dollar: 13750,
+        golds: 0,
+        golds_dollar: 0,
+        id: 19,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 13750,
+      },
+      {
+        date: '2023-04-14 11:06:19',
+        diamonds: 159999,
+        diamonds_dollar: 11250,
+        golds: 0,
+        golds_dollar: 0,
+        id: 18,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 11250,
+      },
+      {
+        date: '2023-04-14 10:58:43',
+        diamonds: 159999,
+        diamonds_dollar: 11250,
+        golds: 0,
+        golds_dollar: 0,
+        id: 17,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 11250,
+      },
+      {
+        date: '2023-04-14 10:53:03',
+        diamonds: 179998,
+        diamonds_dollar: 12750,
+        golds: 0,
+        golds_dollar: 0,
+        id: 16,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 12750,
+      },
+      {
+        date: '2023-04-14 10:50:00',
+        diamonds: 105998,
+        diamonds_dollar: 7500,
+        golds: 0,
+        golds_dollar: 0,
+        id: 15,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 7500,
+      },
+      {
+        date: '2023-04-14 10:47:18',
+        diamonds: 195998,
+        diamonds_dollar: 14250,
+        golds: 0,
+        golds_dollar: 0,
+        id: 14,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 14250,
+      },
+      {
+        date: '2023-04-14 10:42:13',
+        diamonds: 105998,
+        diamonds_dollar: 7500,
+        golds: 0,
+        golds_dollar: 0,
+        id: 13,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 7500,
+      },
+      {
+        date: '2023-04-14 10:33:35',
+        diamonds: 118996,
+        diamonds_dollar: 8250,
+        golds: 0,
+        golds_dollar: 0,
+        id: 12,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 8250,
+      },
+      {
+        date: '2023-04-14 09:54:09',
+        diamonds: 38158,
+        diamonds_dollar: 2250,
+        golds: 0,
+        golds_dollar: 0,
+        id: 11,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 2250,
+      },
+      {
+        date: '2023-04-14 09:50:00',
+        diamonds: 38158,
+        diamonds_dollar: 2250,
+        golds: 0,
+        golds_dollar: 0,
+        id: 10,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 2250,
+      },
+      {
+        date: '2023-04-14 09:48:24',
+        diamonds: 38158,
+        diamonds_dollar: 2250,
+        golds: 0,
+        golds_dollar: 0,
+        id: 9,
+        invite_award_dollar: 0,
+        state: 'Succeeded：',
+        uid: '420202074',
+        wallet: 2250,
+      },
+    ],
     next_salary_date: '2023-05-30',
     text: [
       '1. The system will cut off for you every week automatically.',

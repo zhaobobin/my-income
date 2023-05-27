@@ -209,13 +209,18 @@
   height: 54px;
   line-height: 54px;
   padding: 0 20px;
-  color: #333;
   font-size: 1.1rem;
   text-align: center;
   display: inline-block;
   text-decoration: none;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+}
+.mPicker-confirm {
+  color: #FF6467;
+}
+.mPicker-cancel {
+  color: #333;
 }
 /* line 179, ../sass/mpicker.scss */
 .mPicker-confirm:active, .mPicker-confirm:hover,
@@ -243,7 +248,7 @@
 /* line 199, ../sass/mpicker.scss */
 .mPicker-shadow {
   position: absolute;
-  top: 98px;
+  top: 41px;
   bottom: 38px;
   left: 0;
   width: 100%;

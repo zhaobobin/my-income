@@ -9,16 +9,9 @@
   <link href="./css/bootstrap.min.css" rel="stylesheet">
   <link href="./css/bootstrap-icons.css" rel="stylesheet">
   <link href="./css/mescroll.min.css" rel="stylesheet">
+  <link href="./css/mpicker.css" rel="stylesheet">
   <link href="./css/base.css" rel="stylesheet">
   <style>
-    .current-date {
-      padding: 0 20px;
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 28px;
-      background: #EFF0F4;
-    }
-
     .outer {
       display: flex;
       width: 100%;
@@ -30,57 +23,101 @@
       top: 0;
     }
 
+    .subnav {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 20px;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 28px;
+      background: #EFF0F4;
+      position: fixed;
+      left: 0;
+      top: 60px;
+      z-index: 99;
+    }
+    .subnav i {
+      margin-left: 5px;
+    }
+
     .mescroll {
       flex: 1;
-      background-color: #fff;
+      background: #fff;
       overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      padding: 0 20px;
+      padding-top: 90px;
+      padding-bottom: 30px;
+    }
+    .mescroll-downwarp {
+      background: #888;
+    }
+    .mescroll-downwarp .downwarp-progress, .mescroll-upwarp .upwarp-progress {
+      border-color: #fff;
+    }
+    .mescroll-downwarp .downwarp-tip, .mescroll-upwarp .upwarp-tip, .mescroll-upwarp .upwarp-nodata {
+      color: #fff;
     }
 
-    .item {
-      display: flex;
-      flex-direction: row;
-      padding: 20px 0;
-      border-bottom: 1px solid #EFF0F4;
-    }
-
-    .item .info {
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .item .info .title {
-      margin-bottom: 5px;
+    .next-date {
+      padding: 20px;
       line-height: 21px;
-      font-size: 16px;
+    }
+    .next-date-title {
       color: #333;
     }
-
-    .item .info .date {
-      font-size: 14px;
+    .next-date-text {
       color: #999;
     }
 
-    .item .number {
-      width: 20%;
-      /* text-align: right; */
-      line-height: 24px;
-      font-weight: 600;
+    .item {
+      padding: 0 20px;
+      border-top: 8px solid #EFF0F4;
+    }
+    .item .date {
+      color: #666;
+      line-height: 40px;
+      font-size: 13px;
+    }
+    .item .info {
+      padding-top: 22px;
+      padding-bottom: 16px;
+      border-top: 1px solid #EFF0F4;
+      border-bottom: 1px solid #EFF0F4;
+    }
+    .item .info p {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: end;
-    }
-
-    .item .number font:first-child {
-      font-size: 18px;
-    }
-
-    .item .number font:last-child {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 34px;
       font-size: 15px;
+    }
+    .item .info p label {
+      color: #666;
+    }
+    .item .total {
+      color: #FF6467;
+      line-height: 54px;
+      text-align: right;
+    }
+    
+    #settlement-content {
+      text-align: left;
+      line-height: 21px;
+      color: #8c8c8c;
+    }
+    #settlement-footer {
+      width: 100%;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #999;
+      background: #EFF0F4;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      z-index: 9;
     }
   </style>
 </head>
@@ -94,10 +131,15 @@
       <h1>结算明细</h1>
       <a></a>
     </div>
-    <div class="current-date">
-      <p>2021.06.15</p>
+    <div class="subnav">
+      <p id="picker-date"><span id="current-month"></span><i class="bi bi-chevron-down"></i></p>
+      <p id="instructions" data-toggle="modal" data-target="#exampleModal"><span>Instructions</span><i class="bi bi-question-circle"></i></p>
     </div>
     <div class="mescroll" id="mescroll">
+      <div class="next-date">
+        <p class="next-date-title">下一个账单时间</p>
+        <p id="next_salary_date" class="next-date-text"></p>
+      </div>
       <ul class="lists" id="list">
         <!-- <li class="item">
           <div class="info">
@@ -110,25 +152,39 @@
           </div>
         </li> -->
       </ul>
+      <p id="settlement-footer"></p>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body text-center modal-content">
+            <h4 id="settlement-title">Settlement Instrutions</h4>
+            <ul id="settlement-content"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </body>
 
 <script src="./js/jquery.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/mescroll.min.js"></script>
+<script src="./js/mPicker.min.js"></script>
 <script src="./js/base.js"></script>
 <script>
   var params = GetRequest();
-  var Authorization = params.token;
-  var uid = params.uid;
-  var date = "20230501";
+  var currentMonth = getCurrentMonth();
   var apiUrl = `${baseUrl}/account/salaryRecord`;
   var record_type = 0;
   var pageSize = 10;
 
   $(function () {
-    $('#goBackHref').attr('href', `./income.html?uid=${uid}&token=${params.token}`);
+    $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}`);
+    $('#current-month').html(currentMonth);
 
     //创建MeScroll对象
     var mescroll = new MeScroll("mescroll", {
@@ -150,38 +206,42 @@
     var $list = $('#list');
     function queryList(pageIndex, isAppend) {
       $.ajax({
-        url: `${apiUrl}?date=${date}`,
+        url: `${apiUrl}?date=${currentMonth}`,
         type: 'GET',
         headers: {
-          "Authorization": Authorization,
+          "Authorization": params.token,
           "lang": "en"
         },
         success: function (data) {
-          var hasNext = data.list.length === pageSize;
+          var hasNext = data.list && data.list.length === pageSize;
           mescroll.endSuccess(data.list.length, hasNext);
-          // renderData(data.list, isAppend);
+          renderData(data, isAppend);
         },
         error: function (e) {
           //联网失败的回调,隐藏下拉刷新和上拉加载的状态
           mescroll.endErr();
-          // renderData(mockData.salaryRecord, isAppend);
+          renderData(mockData.salaryRecord, isAppend);
         }
       });
     }
 
     function renderData(curPageData, isAppend) {
+      var list = curPageData.list;
       var hasNext = curPageData.length === pageSize;
       mescroll.endSuccess(curPageData.length, hasNext);
       var str = '';
-      for (var i = 0; i < curPageData.length; i++) {
-        var newObj = curPageData[i];
-        var date = newObj.create_time.split('uid')[0];
+      for (var i = 0; i < list.length; i++) {
+        var newObj = list[i];
         str += '<li class="item">'
+          + '<div class="date">'+ newObj.date +'</div>'
           + '<div class="info">'
-          + '<p class="title">' + newObj.title + '</p>'
-          + '<p class="date">' + date + '</p>'
+          + '<p><label>My diamonds salary</label><span>'+ newObj.diamonds_dollar +'</span></p>'
+          + '<p><label>My Diamonds</label><span>'+ newObj.diamonds +'</span></p>'
+          + '<p><label>My coins salary</label><span>'+ newObj.golds_dollar +'</span></p>'
+          + '<p><label>My coins</label><span>'+ newObj.golds +'</span></p>'
+          + '<p><label>Invite award dollar</label><span>'+ newObj.invite_award_dollar +'</span></p>'
           + '</div>'
-          + '<div class="number">' + newObj.content + '</div>'
+          + '<div class="total">' + newObj.state + '$' + newObj.wallet + '</div>'
           + '</li>';
       }
       if (isAppend) {
@@ -189,6 +249,14 @@
       } else {
         $list.html(str);  //加在列表的前面,下拉刷新
       }
+      var contentText = '';
+      curPageData.text.forEach(function(text) {
+        contentText += '<li>' + text + '</li>';
+      });
+      $('#next_salary_date').html(curPageData.next_salary_date);
+      $('#settlement-title').html(curPageData.title);
+      $('#settlement-content').html(contentText);
+      $('#settlement-footer').html(curPageData.floor_text);
     }
 
     /*下拉刷新的回调 */
@@ -200,6 +268,28 @@
     function upCallback(page) {
       queryList(page.num, true);
     }
+
+    // 年月选择
+    var yearList = getAllYears(10);
+    $('#picker-date').mPicker({
+      level: 2,
+      dataJson: yearList,
+      Linkage: false,
+      rows: 5,
+      height: 44,
+      idDefault: true,
+      splitStr: "",
+      header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div></div>',
+      footer: '<div class="mPicker-footer"></div>',
+      confirm: function (json) {
+        currentMonth = json.values;
+        $('#current-month').html(currentMonth);
+        queryList(0, false);
+      },
+      cancel: function (json) {
+        console.info('当前选中json：', json);
+      }
+    })
 
   });
 

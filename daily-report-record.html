@@ -5,11 +5,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0">
-  <title>收益明细</title>
+  <title>盈利报告</title>
   <link href="./css/bootstrap.min.css" rel="stylesheet">
   <link href="./css/bootstrap-icons.css" rel="stylesheet">
   <link href="./css/mescroll.min.css" rel="stylesheet">
-  <link href="./css/mpicker.css" rel="stylesheet">
   <link href="./css/base.css" rel="stylesheet">
   <style>
     .outer {
@@ -23,9 +22,7 @@
       top: 0;
     }
 
-    .subnav {
-      display: flex;
-      justify-content: space-between;
+    .current-date {
       width: 100%;
       padding: 0 20px;
       font-size: 15px;
@@ -36,9 +33,6 @@
       left: 0;
       top: 60px;
       z-index: 99;
-    }
-    .subnav i {
-      margin-left: 5px;
     }
 
     .mescroll {
@@ -107,18 +101,17 @@
   </style>
 </head>
 
-<body class="income-record">
+<body class="daily-report-record">
   <div class="outer">
     <div class="navbar">
       <a id="goBackHref">
         <img src="./image/arrow_left.png" alt="arrow">
       </a>
-      <h1>收益明细</h1>
+      <h1>盈利报告</h1>
       <a></a>
     </div>
-    <div class="subnav">
-      <p id="picker-date"><span id="current-month"></span><i class="bi bi-chevron-down"></i></p>
-      <p id="record-type"><span>全部</span><i class="bi bi-chevron-down"></i></p>
+    <div class="current-date">
+      <p id="current-date"></p>
     </div>
     <div class="mescroll" id="mescroll">
       <ul class="lists" id="list">
@@ -140,18 +133,16 @@
 <script src="./js/jquery.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/mescroll.min.js"></script>
-<script src="./js/mPicker.min.js"></script>
 <script src="./js/base.js"></script>
 <script>
   var params = GetRequest();
-  var currentMonth = getCurrentMonth();
   var apiUrl = `${baseUrl}/account/incomeRecord`;
   var record_type = 0;
   var pageSize = 10;
 
   $(function () {
-    $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}`);
-    $('#current-month').html(currentMonth);
+    $('#goBackHref').attr('href', `./daily-report.html?uid=${params.uid}&token=${params.token}`);
+    $('#current-date').html(params.date);
 
     //创建MeScroll对象
     var mescroll = new MeScroll("mescroll", {
@@ -173,7 +164,7 @@
     var $list = $('#list');
     function queryList(pageIndex, isAppend) {
       $.ajax({
-        url: `${apiUrl}?date=${currentMonth}&page=${pageIndex}&size=${pageSize}&record_type=${record_type}`,
+        url: `${apiUrl}?date=${params.date}&page=${pageIndex}&size=${pageSize}&record_type=${record_type}`,
         type: 'GET',
         headers: {
           "Authorization": params.token,
@@ -198,10 +189,11 @@
       var str = '';
       for (var i = 0; i < curPageData.length; i++) {
         var newObj = curPageData[i];
+        var date = newObj.create_time.split('uid')[0];
         str += '<li class="item">'
             + '<div class="info">'
             + '<p class="title">'+ newObj.title +'</p>'
-            + '<p class="date">'+ newObj.create_time +'</p>'
+            + '<p class="date">'+ date +'</p>'
             + '</div>'
             + '<div class="number">'+ newObj.content +'</div>'
             + '</li>';
@@ -222,54 +214,6 @@
     function upCallback(page) {
 			queryList(page.num, true);
     }
-
-    // 年月选择
-    var yearList = getAllYears(10);
-    $('#picker-date').mPicker({
-      level: 2,
-      dataJson: yearList,
-      Linkage: false,
-      rows: 5,
-      height: 44,
-      idDefault: true,
-      splitStr: "",
-      header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div></div>',
-      footer: '<div class="mPicker-footer"></div>',
-      confirm: function (json) {
-        currentMonth = json.values;
-        $('#current-month').html(currentMonth);
-        queryList(0, false);
-      },
-      cancel: function (json) {
-        console.info('当前选中json：', json);
-      }
-    })
-
-    // 类型选择
-    var dateList = [
-      { name: "全部", value: "0" },
-      { name: "im", value: "1" },
-      { name: "video", value: "2" },
-      { name: "gift", value: "3" },
-    ];
-    $('#record-type').mPicker({
-      level: 1,
-      dataJson: dateList,
-      Linkage: false,
-      rows: 6,
-      height: 44,
-      idDefault: true,
-      header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div></div>',
-      footer: '<div class="mPicker-footer"></div>',
-      confirm: function (json) {
-        // console.log(json)
-        record_type = json.values;
-        queryList(0, false);
-      },
-      cancel: function (json) {
-        console.info('当前选中json：', json);
-      }
-    })
 
   });
 
