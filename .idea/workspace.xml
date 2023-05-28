@@ -10,7 +10,20 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8a9b170-ed1d-476e-8096-9a232a096e99" name="默认更改列表" comment="" />
+    <list default="true" id="b8a9b170-ed1d-476e-8096-9a232a096e99" name="默认更改列表" comment="update">
+      <change afterPath="$PROJECT_DIR$/image/empty.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/call.html" beforeDir="false" afterPath="$PROJECT_DIR$/call.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/base.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/daily-report-record.html" beforeDir="false" afterPath="$PROJECT_DIR$/daily-report-record.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/daily-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/daily-report.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/income-record.html" beforeDir="false" afterPath="$PROJECT_DIR$/income-record.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/income.html" beforeDir="false" afterPath="$PROJECT_DIR$/income.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/base.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/daily-picker.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/daily-picker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/mPicker.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/mPicker.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message.html" beforeDir="false" afterPath="$PROJECT_DIR$/message.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/salary-record.html" beforeDir="false" afterPath="$PROJECT_DIR$/salary-record.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,7 +54,16 @@
       <option name="presentableId" value="Default" />
       <updated>1685123323768</updated>
       <workItem from="1685123328103" duration="40000" />
+      <workItem from="1685183121626" duration="607000" />
     </task>
+    <task id="LOCAL-00001" summary="update">
+      <created>1685183209809</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1685183209809</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -57,5 +79,16 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="340" y="211" key="Vcs.Push.Dialog.v2" timestamp="1685183226740">
+      <screen x="0" y="25" width="1680" height="1025" />
+    </state>
+    <state x="340" y="211" key="Vcs.Push.Dialog.v2/0.25.1680.1025@0.25.1680.1025" timestamp="1685183226740" />
   </component>
 </project>

@@ -110,18 +110,7 @@
       <p id="current-date"></p>
     </div>
     <div class="mescroll" id="mescroll">
-      <ul class="lists" id="list">
-        <!-- <li class="item">
-          <div class="info">
-            <p class="title">Video chat earns 700 diamonds with seae</p>
-            <p class="date">2023-05-01 07:18:42</p>
-          </div>
-          <div class="number">
-            <font color="#FF6467">+700</font>
-            <font color="#FF6467">diamonds</font>
-          </div>
-        </li> -->
-      </ul>
+      <ul class="lists" id="list"></ul>
     </div>
   </div>
 </body>
@@ -153,6 +142,14 @@
         toTop: { //配置回到顶部按钮
           src: "./image/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
           //offset : 1000
+        },
+        empty: {
+          warpId : 'list',
+          icon : './image/empty.png',
+          tip : "暂无相关数据~" ,
+          btntext : "",
+          btnClick : null,
+          supportTap : false
         }
       }
     });
@@ -167,7 +164,7 @@
           "lang": "en"
         },
         success: function (data) {
-          var hasNext = data.list.length === pageSize;
+          var hasNext = data.list.length <= pageSize;
           mescroll.endSuccess(data.list.length, hasNext);
           renderData(data.list, isAppend);
         },
@@ -180,7 +177,7 @@
     }
 
     function renderData(curPageData, isAppend) {
-      var hasNext = curPageData.length === pageSize;
+      var hasNext = curPageData.length <= pageSize;
       mescroll.endSuccess(curPageData.length, hasNext);
       var str = '';
       for (var i = 0; i < curPageData.length; i++) {

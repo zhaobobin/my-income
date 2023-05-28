@@ -431,7 +431,6 @@ $(
         $("#enddate").html(enddateDefaultText);
       }
       if (startdateHtml === startdateDefaultText) {
-        console.log(dataJson[z].value)
         $("#startdate").addClass('active').html(dataJson[z].name);
         $("#filter").attr('selected-start', dataJson[z].value);
       }

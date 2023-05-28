@@ -63,13 +63,21 @@
       </li> -->
       <li class="tr">
         <label for="">消息</label>
-        <p><span id="today_total_message">11</span></p>
-        <i class="bi bi-chevron-right"></i>
+        <p>
+          <a href="" id="totayMessageHref">
+            <span id="today_total_message">11</span><i class="bi bi-chevron-right"></i>
+          </a>
+        </p>
       </li>
       <li class="tr">
         <label for="">通话时长</label>
-        <p><span id="today_call_duration">0</span><span>/mins</span></p>
-        <i class="bi bi-chevron-right"></i>
+        <p>
+          <a href="" id="totayCallHref">
+            <span id="today_call_duration">0</span>
+            <span>/mins</span>
+            <i class="bi bi-chevron-right"></i>
+          </a>
+        </p>
       </li>
     </ul>
 
@@ -156,6 +164,8 @@
     $('#dailyReportHref').attr('href', `./daily-report.html?uid=${params.uid}&token=${params.token}`);
     $('#incomeRecordHref').attr('href', `./income-record.html?uid=${params.uid}&token=${params.token}`);
     $('#salaryRecordHref').attr('href', `./salary-record.html?uid=${params.uid}&token=${params.token}`);
+    $('#totayMessageHref').attr('href', `./message.html?uid=${params.uid}&token=${params.token}`);
+    $('#totayCallHref').attr('href', `./call.html?uid=${params.uid}&token=${params.token}`);
   }
 
   $(function () {

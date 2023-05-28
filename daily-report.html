@@ -45,6 +45,7 @@
 <script>
   var params = GetRequest();
   var currentMonth = getCurrentMonth();
+  var dateList = getAllDays(14);
 
   var $datepicker = $('#datepicker');
   var $table = $('#table');
@@ -54,11 +55,12 @@
       title: '日期',// 表头字段名
       field: 'deal_date',// 数据 key
       align: 'center',// 居中
-      width: 100,
+      width: 150,
       // sortable: true,// 排序
       formatter: function (value, row, index) {
-        var href = `./daily-report-record.html?date=${row.date}&uid=${params.uid}&token=${params.token}`;
-        return '<a href='+ href +'>' + value + '<i class="bi bi-chevron-right"></i></a>';
+        var date = row.remark === 'Total' ? row.date_str : row.date;
+        var href = `./daily-report-record.html?date=${date}&uid=${params.uid}&token=${params.token}`;
+        return '<a href='+ href +'><strong>' + row.remark + '</strong><span>' + value + '</span><i class="bi bi-chevron-right"></i></a>';
       }
     },
     {
@@ -93,9 +95,9 @@
     }
   ];
 
-  function queryDaily(date) {
+  function queryDaily(start_date, end_date) {
     $.ajax({
-      url: `${baseUrl}/account/incomeRecord?date=${date}`,
+      url: `${baseUrl}/account/anchorDailyReports?start_date=${start_date}&end_date=${end_date}`,
       type: 'GET',
       headers: {
         "Authorization": params.token,
@@ -105,7 +107,7 @@
         initTable(data.list);
       },
       error: function (e) {
-        initTable(mockData.dailyReport.reverse())
+        initTable(mockData.dailyReport)
       }
     });
   }
@@ -126,7 +128,7 @@
   }
 
   $(function () {
-    queryDaily(currentMonth);
+    queryDaily(dateList[0].value, dateList[dateList.length - 1].value);
 
     $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}`);
     $('#uid').html(params.uid);
@@ -142,7 +144,7 @@
     });
 
     // 日期选择
-    var dateList = getAllDays(14);
+    
     $('#filter').mPicker({
       level: 1,
       dataJson: dateList,
@@ -153,9 +155,9 @@
       header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div><div class="date"><span id="startdate"></span><i></i><span id="enddate"></span></div></div>',
       footer: '<div class="mPicker-footer"></div>',
       confirm: function (json) {
-        var startdate = $("#filter").attr('selected-start');
-        var enddate = json.values;
-        queryDaily(`${startdate}-${enddate}`);
+        var startDate = $("#filter").attr('selected-start');
+        var endDate = json.values;
+        queryDaily(startDate, endDate);
       },
       cancel: function (json) {
         console.info('当前选中json：', json);
