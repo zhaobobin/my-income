@@ -1,4 +1,4 @@
-var baseUrl = 'http://api-account.lisaword.com';
+var baseUrl = 'https://api-account.lisaword.com';
 
 var recordTypeList = [
   { name: "全部", value: "0" },

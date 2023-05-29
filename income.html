@@ -157,7 +157,7 @@
         "lang": "en"
       },
       success: function (data) {
-        renderData(data);
+        renderData(data.data);
       },
       error: function (e) {
         renderData(mockData.income);
@@ -168,7 +168,7 @@
   function renderData(data) {
     $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}&action=PaymentPageNativeClose`);
     $('#diamonds_total').html(data.diamonds);
-    $('#diamonds_dollar').html(data.diamonds_dollar);
+    $('#diamonds_dollar').html(data.diamonds_dollar/100);
     $('#today_total_diamonds').html(data.today_data.total_diamonds);
     $('#today_total_message').html(data.today_data.messages);
     $('#today_call_duration').html(data.today_data.call_duration);

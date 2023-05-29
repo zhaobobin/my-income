@@ -86,7 +86,7 @@ a:active {
 .mescroll-empty {
   display: flex;
   height: 100%;
-  padding: 0;
+  padding-top: 100px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -331,7 +331,8 @@ a:active {
   background: #eef2f5;
   position: fixed;
   left: 0;
-  top: 60px;
+  top: calc(60px + constant(safe-area-inset-top));
+  top: calc(60px + env(safe-area-inset-top));
   z-index: 99;
 }
 
@@ -344,7 +345,8 @@ a:active {
 }
 
 .table {
-  padding-top: 90px;
+  padding-top: calc(90px + constant(safe-area-inset-top));
+  padding-top: calc(90px + env(safe-area-inset-top));
   table-layout: fixed;
   word-break: break-all;
 }

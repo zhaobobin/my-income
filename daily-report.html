@@ -59,6 +59,7 @@
   var params = GetRequest();
   var currentMonth = getCurrentMonth();
   var dateList = getAllDays(14);
+  var dateEnd = getAllDays(7);
 
   var $datepicker = $('#datepicker');
   var $table = $('#table');
@@ -117,7 +118,7 @@
         "lang": "en"
       },
       success: function (data) {
-        initTable(data.list);
+        initTable(data.data.list);
       },
       error: function (e) {
         initTable(mockData.dailyReport)
@@ -141,7 +142,7 @@
   }
 
   $(function () {
-    queryDaily(dateList[0].value, dateList[dateList.length - 1].value);
+    queryDaily(dateEnd[0].value, dateEnd[dateEnd.length - 1].value);
 
     $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}`);
     $('#uid').html(params.uid);

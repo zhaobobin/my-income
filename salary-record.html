@@ -35,7 +35,8 @@
       background: #EFF0F4;
       position: fixed;
       left: 0;
-      top: 60px;
+      top: calc(60px + constant(safe-area-inset-top));
+      top: calc(60px + env(safe-area-inset-top));
       z-index: 99;
     }
     .subnav i {
@@ -46,8 +47,10 @@
       flex: 1;
       background: #fff;
       overflow-y: scroll;
-      padding-top: 90px;
-      padding-bottom: 30px;
+      padding-top: calc(90px + constant(safe-area-inset-top));
+      padding-top: calc(90px + env(safe-area-inset-top));
+      padding-bottom: calc(30px + constant(safe-area-inset-bottom));
+      padding-bottom: calc(30px + env(safe-area-inset-bottom));
     }
     .mescroll-downwarp {
       background: #888;
@@ -117,7 +120,8 @@
       background: #EFF0F4;
       position: fixed;
       left: 0;
-      bottom: 0;
+      bottom: constant(safe-area-inset-bottom);
+      bottom: env(safe-area-inset-bottom);
       z-index: 9;
     }
   </style>
@@ -223,10 +227,10 @@
           "lang": "en"
         },
         success: function (data) {
-          if (!data.list) {
-            data.list = [];
+          if (!data.data.list) {
+            data.data.list = [];
           }
-          renderData(data, isAppend);
+          renderData(data.data, isAppend);
         },
         error: function (e) {
           //联网失败的回调,隐藏下拉刷新和上拉加载的状态
@@ -246,13 +250,11 @@
         str += '<li class="item">'
           + '<div class="date">'+ newObj.date +'</div>'
           + '<div class="info">'
-          + '<p><label>My diamonds salary</label><span>'+ newObj.diamonds_dollar +'</span></p>'
-          + '<p><label>My Diamonds</label><span>'+ newObj.diamonds +'</span></p>'
-          + '<p><label>My coins salary</label><span>'+ newObj.golds_dollar +'</span></p>'
-          + '<p><label>My coins</label><span>'+ newObj.golds +'</span></p>'
-          + '<p><label>Invite award dollar</label><span>'+ newObj.invite_award_dollar +'</span></p>'
+          + '<p><label>我的钻石工资</label><span>+$'+ newObj.diamonds_dollar/100 +'</span></p>'
+          + '<p><label>我的钻石</label><span>-'+ newObj.diamonds +'</span></p>'
+          + '<p><label>邀请奖励</label><span>+$'+ newObj.invite_award_dollar/100 +'</span></p>'
           + '</div>'
-          + '<div class="total">' + newObj.state + '$ ' + newObj.wallet + '</div>'
+          + '<div class="total">' + newObj.state + '$ ' + newObj.wallet/100 + '</div>'
           + '</li>';
       }
       if (isAppend) {
