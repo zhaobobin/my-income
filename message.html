@@ -119,8 +119,8 @@
       </div>
     </div>
     <div class="subnav">
-      <p id="picker-date"><span id="current-month"></span><i class="bi bi-chevron-down"></i></p>
-      <p id="record-type"><span id="record-type-text">消息</span><i class="bi bi-chevron-down"></i></p>
+      <p id="picker-date"><span id="current-day"></span></p>
+      <p id="record-type"><span id="record-type-text">消息</span></p>
     </div>
     <div class="mescroll" id="mescroll">
       <ul class="lists" id="list"></ul>
@@ -145,14 +145,14 @@
   };
   
   var params = GetRequest();
-  var currentMonth = getCurrentMonth();
+  var currentDay = getCurrentDay();
   var apiUrl = `${baseUrl}/account/incomeRecord`;
   var record_type = 2;
   var pageSize = 30;
 
   $(function () {
     $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}`);
-    $('#current-month').html(currentMonth);
+    $('#current-day').html(currentDay);
 
     //创建MeScroll对象
     var mescroll = new MeScroll("mescroll", {
@@ -182,7 +182,7 @@
     var $list = $('#list');
     function queryList(pageIndex, isAppend) {
       $.ajax({
-        url: `${apiUrl}?date=${currentMonth}&page=${pageIndex}&size=${pageSize}&record_type=${record_type}`,
+        url: `${apiUrl}?date=${currentDay}&page=${pageIndex}&size=${pageSize}&record_type=${record_type}`,
         type: 'GET',
         headers: {
           "Authorization": params.token,
@@ -234,49 +234,49 @@
     }
 
     // 年月选择
-    var yearList = getAllYears(10);
-    $('#picker-date').mPicker({
-      level: 2,
-      defaultValue: [yearList.length - 1, new Date().getMonth()],
-      dataJson: yearList,
-      Linkage: true,
-      rows: 5,
-      height: 44,
-      idDefault: true,
-      splitStr: "",
-      header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div></div>',
-      footer: '<div class="mPicker-footer"></div>',
-      confirm: function (json) {
-        currentMonth = json.values;
-        $('#current-month').html(currentMonth);
-        queryList(0, false);
-      },
-      cancel: function (json) {
-        console.info('当前选中json：', json);
-      }
-    })
+    // var yearList = getAllYears(10);
+    // $('#picker-date').mPicker({
+    //   level: 2,
+    //   defaultValue: [yearList.length - 1, new Date().getMonth()],
+    //   dataJson: yearList,
+    //   Linkage: true,
+    //   rows: 5,
+    //   height: 44,
+    //   idDefault: true,
+    //   splitStr: "",
+    //   header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div></div>',
+    //   footer: '<div class="mPicker-footer"></div>',
+    //   confirm: function (json) {
+    //     currentMonth = json.values;
+    //     $('#current-month').html(currentMonth);
+    //     queryList(0, false);
+    //   },
+    //   cancel: function (json) {
+    //     console.info('当前选中json：', json);
+    //   }
+    // })
 
     // 类型选择
-    $('#record-type').mPicker({
-      level: 1,
-      defaultValue: [1],
-      dataJson: recordTypeList,
-      Linkage: false,
-      rows: 6,
-      height: 44,
-      idDefault: true,
-      header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div></div>',
-      footer: '<div class="mPicker-footer"></div>',
-      confirm: function (json) {
-        // console.log(json)
-        $('#record-type-text').html(json.name);
-        record_type = json.values;
-        queryList(0, false);
-      },
-      cancel: function (json) {
-        console.info('当前选中json：', json);
-      }
-    })
+    // $('#record-type').mPicker({
+    //   level: 1,
+    //   defaultValue: [1],
+    //   dataJson: recordTypeList,
+    //   Linkage: false,
+    //   rows: 6,
+    //   height: 44,
+    //   idDefault: true,
+    //   header: '<div class="mPicker-header"><div class="action"><a href="javascript:;" class="mPicker-cancel">取消</a><a href="javascript:;" class="mPicker-confirm">确认</a></div></div>',
+    //   footer: '<div class="mPicker-footer"></div>',
+    //   confirm: function (json) {
+    //     // console.log(json)
+    //     $('#record-type-text').html(json.name);
+    //     record_type = json.values;
+    //     queryList(0, false);
+    //   },
+    //   cancel: function (json) {
+    //     console.info('当前选中json：', json);
+    //   }
+    // })
 
   });
 

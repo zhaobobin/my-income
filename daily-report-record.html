@@ -172,8 +172,14 @@
 
     var $list = $('#list');
     function queryList(pageIndex, isAppend) {
+      params.endDate = 0;
+      var arr = params.date.split('-');
+      if(arr.length==2){
+        params.date = arr[0];
+        params.endDate = arr[1];
+      }
       $.ajax({
-        url: `${apiUrl}?date=${params.date}&page=${pageIndex}&size=${pageSize}&record_type=${record_type}`,
+        url: `${apiUrl}?date=${params.date}&end_date=${params.endDate}&page=${pageIndex}&size=${pageSize}&record_type=${record_type}`,
         type: 'GET',
         headers: {
           "Authorization": params.token,

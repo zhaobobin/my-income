@@ -21,6 +21,21 @@ function GetRequest() {
   return theRequest;
 }
 
+// 获取当前天
+function getCurrentDay() {
+  var date = new Date();
+  var year = date.getFullYear().toString();
+  var month = (date.getMonth() + 1).toString();
+  var day = date.getDate().toString();
+  if (month.length === 1) {
+    month = '0' + month;
+  }
+  if (day.length === 1) {
+    day = '0' + day;
+  }
+  return year + month + day;
+}
+
 // 获取当前月
 function getCurrentMonth() {
   var date = new Date();
