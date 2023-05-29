@@ -69,9 +69,11 @@ function getAllDays(n) {
 }
 
 function getAllYears(n) {
+  var date = new Date();
   var yearList = [];
-  var months = []
-  var currentMonth = new Date().getMonth() + 1;
+  var months = [];
+  var currentYear = date.getFullYear().toString();
+  var currentMonth = date.getMonth() + 1;
   monthList.forEach(function(month) {
     if (month.id <= currentMonth) {
       months.push(month);
@@ -79,7 +81,7 @@ function getAllYears(n) {
   });
   for (var i = n; i >= 0; i--) {
     var yaer = getYearList(i);
-    yaer.child = months;
+    yaer.child = yaer.value === currentYear ? months : monthList;
     yearList.push(yaer);
   }
   return yearList;
