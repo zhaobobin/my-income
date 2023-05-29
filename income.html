@@ -8,24 +8,29 @@
   <title>我的收益</title>
   <link href="./css/bootstrap.min.css" rel="stylesheet">
   <link href="./css/bootstrap-icons.css" rel="stylesheet">
+  <link href="./css/nprogress.css" rel="stylesheet">
   <link href="./css/base.css" rel="stylesheet">
 </head>
 
-<body class="income">
-  <div class="navbar">
-    <a href="PaymentPageNativeClose">
-      <img src="./image/arrow_left.png" alt="arrow">
-    </a>
-    <h1>我的收入</h1>
-    <a></a>
+<body class="income" style='display: none'>
+  <div class="navbar" id="navbar">
+    <div class="top"></div>
+    <div class="wrapper">
+      <a id="goBackHref">
+        <img src="./image/arrow_left.png" alt="arrow">
+      </a>
+      <h1>我的收入</h1>
+      <a></a>
+    </div>
   </div>
-  <div class="content">
+  <div class="content out" id="content">
     <div class="row total">
       <div class="col">
         <div class="diamonds">
           <!-- <img src="./image/income_bg1.png" alt="diamonds"> -->
           <div class="info">
-            <p class="p1"><span>钻石</span><i class="bi bi-question-circle" data-toggle="modal" data-target="#exampleModal"></i></p>
+            <p class="p1"><span>钻石</span><i class="bi bi-question-circle" data-toggle="modal"
+                data-target="#exampleModal"></i></p>
             <p class="p2"><span id="diamonds_total"></span></p>
             <p class="p3">=$<span id="diamonds_dollar"></span></p>
           </div>
@@ -73,8 +78,7 @@
         <label for="">通话时长</label>
         <p>
           <a href="" id="totayCallHref">
-            <span id="today_call_duration">0</span>
-            <span>/mins</span>
+            <span id="today_call_duration">0</span><span>/mins</span>
             <i class="bi bi-chevron-right"></i>
           </a>
         </p>
@@ -99,37 +103,49 @@
           <span>我的代理</span>
           <span>
             <em id="agent_name">aaa</em>
-            <br/>
+            <br />
             <em id="agent_phone">+86 188***3456</em>
           </span>
         </a>
       </li>
     </ul>
+
+    <div class="footer">
+      <p class="p1"><span id="contact"></span></p>
+      <p class="p2">ID: <span id="uid"></span></p>
+      <p class="p3"></p>
+    </div>
   </div>
 
-  <div class="footer">
-    <p class="p1"><span id="contact"></span></p>
-    <p class="p2">ID: <span id="uid"></span></p>
-  </div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body text-center modal-content">
-        <h4>虚拟收入和现金的转换</h4>
-        <p id="diamonds_exchange"></p>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center modal-content">
+          <h4>虚拟收入和现金的转换</h4>
+          <p id="diamonds_exchange"></p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 </body>
 
 <script src="./js/jquery.min.js"></script>
 <script src="./js/bootstrap.min.js"></script>
+<script src="./js/nprogress.js"></script>
 <script src="./js/base.js"></script>
 <script>
+  $('body').show();
+  NProgress.configure({ showSpinner: false });
+  NProgress.start();
+  document.onreadystatechange = function () {
+    if(document.readyState === 'complete'){
+      NProgress.done();
+      $('.content').removeClass('out');
+    }
+  };
+
   var params = GetRequest();
   var apiUrl = `${baseUrl}/account/income`;
 
@@ -144,13 +160,14 @@
       success: function (data) {
         renderData(data);
       },
-      error: function(e) {
+      error: function (e) {
         renderData(mockData.income);
       }
     });
   }
 
   function renderData(data) {
+    $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}&action=PaymentPageNativeClose`);
     $('#diamonds_total').html(data.diamonds);
     $('#diamonds_dollar').html(data.diamonds_dollar);
     $('#today_total_diamonds').html(data.today_data.total_diamonds);
@@ -160,7 +177,8 @@
     $('#agent_phone').html(data.agent_phone);
     $('#contact').html(data.contact);
     $('#uid').html(params.uid);
-    $('#diamonds_exchange').html(data.exchange_text.diamond);
+    var html = '<p><span>' + data.exchange_text.diamond[0].split('?')[0] + '</span><img src="./image/damond3@2x.png" width="24" height="auto" alt="icon" /><span>' + data.exchange_text.diamond[0].split('?')[1] + '</span></p>'
+    $('#diamonds_exchange').html(html);
     $('#dailyReportHref').attr('href', `./daily-report.html?uid=${params.uid}&token=${params.token}`);
     $('#incomeRecordHref').attr('href', `./income-record.html?uid=${params.uid}&token=${params.token}`);
     $('#salaryRecordHref').attr('href', `./salary-record.html?uid=${params.uid}&token=${params.token}`);
@@ -171,6 +189,8 @@
   $(function () {
     queryData();
   });
+
+  
 
 
 </script>

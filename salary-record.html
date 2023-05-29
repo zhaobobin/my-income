@@ -10,6 +10,7 @@
   <link href="./css/bootstrap-icons.css" rel="stylesheet">
   <link href="./css/mescroll.min.css" rel="stylesheet">
   <link href="./css/mpicker.css" rel="stylesheet">
+  <link href="./css/nprogress.css" rel="stylesheet">
   <link href="./css/base.css" rel="stylesheet">
   <style>
     .outer {
@@ -122,18 +123,21 @@
   </style>
 </head>
 
-<body class="income">
+<body class="income" style='display: none'>
   <div class="outer">
     <div class="navbar">
-      <a id="goBackHref">
-        <img src="./image/arrow_left.png" alt="arrow">
-      </a>
-      <h1>结算明细</h1>
-      <a></a>
+      <div class="top"></div>
+      <div class="wrapper">
+        <a id="goBackHref">
+          <img src="./image/arrow_left.png" alt="arrow">
+        </a>
+        <h1>结算明细</h1>
+        <a></a>
+      </div>
     </div>
     <div class="subnav">
       <p id="picker-date"><span id="current-month"></span><i class="bi bi-chevron-down"></i></p>
-      <p id="instructions" data-toggle="modal" data-target="#exampleModal"><span>Instructions</span><i class="bi bi-question-circle"></i></p>
+      <p id="instructions" data-toggle="modal" data-target="#exampleModal"><span>说明</span><i class="bi bi-question-circle"></i></p>
     </div>
     <div class="mescroll" id="mescroll">
       <div class="next-date">
@@ -163,13 +167,23 @@
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/mescroll.min.js"></script>
 <script src="./js/mPicker.min.js"></script>
+<script src="./js/nprogress.js"></script>
 <script src="./js/base.js"></script>
 <script>
+  $('body').show();
+  NProgress.configure({ showSpinner: false });
+  NProgress.start();
+  document.onreadystatechange = function () {
+    if(document.readyState === 'complete'){
+      NProgress.done();
+    }
+  };
+  
   var params = GetRequest();
   var currentMonth = getCurrentMonth();
   var apiUrl = `${baseUrl}/account/salaryRecord`;
   var record_type = 0;
-  var pageSize = 10;
+  var pageSize = 30;
 
   $(function () {
     $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}`);
@@ -213,8 +227,6 @@
           if (!data.list) {
             data.list = [];
           }
-          var hasNext = data.list.length <= pageSize;
-          mescroll.endSuccess(data.list.length, hasNext);
           renderData(data, isAppend);
         },
         error: function (e) {
@@ -227,8 +239,8 @@
 
     function renderData(curPageData, isAppend) {
       var list = curPageData.list;
-      var hasNext = curPageData.length <= pageSize;
-      mescroll.endSuccess(curPageData.length, hasNext);
+      var hasNext = list.length === pageSize;
+      mescroll.endSuccess(list.length, hasNext);
       var str = '';
       for (var i = 0; i < list.length; i++) {
         var newObj = list[i];

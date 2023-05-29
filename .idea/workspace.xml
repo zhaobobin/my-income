@@ -11,16 +11,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b8a9b170-ed1d-476e-8096-9a232a096e99" name="默认更改列表" comment="update">
-      <change afterPath="$PROJECT_DIR$/image/empty.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/call.html" beforeDir="false" afterPath="$PROJECT_DIR$/call.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/base.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/daily-report-record.html" beforeDir="false" afterPath="$PROJECT_DIR$/daily-report-record.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/daily-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/daily-report.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/income-record.html" beforeDir="false" afterPath="$PROJECT_DIR$/income-record.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/income.html" beforeDir="false" afterPath="$PROJECT_DIR$/income.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/base.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/base.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/daily-picker.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/daily-picker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/mPicker.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/mPicker.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/message.html" beforeDir="false" afterPath="$PROJECT_DIR$/message.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/salary-record.html" beforeDir="false" afterPath="$PROJECT_DIR$/salary-record.html" afterDir="false" />
     </list>
@@ -55,6 +50,8 @@
       <updated>1685123323768</updated>
       <workItem from="1685123328103" duration="40000" />
       <workItem from="1685183121626" duration="607000" />
+      <workItem from="1685260851964" duration="598000" />
+      <workItem from="1685277335744" duration="598000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1685183209809</created>

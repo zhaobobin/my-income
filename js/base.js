@@ -35,7 +35,7 @@ function getCurrentMonth() {
 // 生成年月选项
 function getYearList(n) {
   var year = (new Date().getFullYear() - n).toString();
-  return { name: year, value: year, child: monthList };
+  return { name: year, value: year };
 }
 
 // 生成日期选项
@@ -70,25 +70,34 @@ function getAllDays(n) {
 
 function getAllYears(n) {
   var yearList = [];
+  var months = []
+  var currentMonth = new Date().getMonth() + 1;
+  monthList.forEach(function(month) {
+    if (month.id <= currentMonth) {
+      months.push(month);
+    }
+  });
   for (var i = n; i >= 0; i--) {
-    yearList.push(getYearList(i));
+    var yaer = getYearList(i);
+    yaer.child = months;
+    yearList.push(yaer);
   }
   return yearList;
 }
 
 var monthList = [
-  { name: '01', value: '01' },
-  { name: '02', value: '02' },
-  { name: '03', value: '03' },
-  { name: '04', value: '04' },
-  { name: '05', value: '05' },
-  { name: '06', value: '06' },
-  { name: '07', value: '07' },
-  { name: '08', value: '08' },
-  { name: '09', value: '09' },
-  { name: '10', value: '10' },
-  { name: '11', value: '11' },
-  { name: '12', value: '12' },
+  { name: '01', value: '01', id: 1 },
+  { name: '02', value: '02', id: 2 },
+  { name: '03', value: '03', id: 3 },
+  { name: '04', value: '04', id: 4 },
+  { name: '05', value: '05', id: 5 },
+  { name: '06', value: '06', id: 6 },
+  { name: '07', value: '07', id: 7 },
+  { name: '08', value: '08', id: 8 },
+  { name: '09', value: '09', id: 9 },
+  { name: '10', value: '10', id: 10 },
+  { name: '11', value: '11', id: 11 },
+  { name: '12', value: '12', id: 12 },
 ];
 
 const mockData = {
@@ -118,7 +127,7 @@ const mockData = {
       content:
         '<font color="#FF6467">+30000</font><br><font color="#FF6467" size="15px">diamonds</font>',
       create_time: '2023-05-01 07:18:42 uid:330201307',
-      title: 'Video chat earns 30000 diamonds with seae',
+      title: 'Video chat earns 30000 diamonds',
     },
     {
       content:

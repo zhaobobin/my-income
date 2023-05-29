@@ -10,6 +10,7 @@
   <link href="./css/bootstrap-icons.css" rel="stylesheet">
   <link href="./css/mescroll.min.css" rel="stylesheet">
   <link href="./css/mpicker.css" rel="stylesheet">
+  <link href="./css/nprogress.css" rel="stylesheet">
   <link href="./css/base.css" rel="stylesheet">
   <style>
     .outer {
@@ -91,6 +92,7 @@
       padding-top: 12px;
       line-height: 24px;
       font-weight: 600;
+      text-align: right;
     }
 
     .item .number font:first-child {
@@ -103,14 +105,17 @@
   </style>
 </head>
 
-<body class="income-record">
+<body class="income-record" style='display: none'>
   <div class="outer">
     <div class="navbar">
-      <a id="goBackHref">
-        <img src="./image/arrow_left.png" alt="arrow">
-      </a>
-      <h1>通话时长</h1>
-      <a></a>
+      <div class="top"></div>
+      <div class="wrapper">
+        <a id="goBackHref">
+          <img src="./image/arrow_left.png" alt="arrow">
+        </a>
+        <h1>通话时长</h1>
+        <a></a>
+      </div>
     </div>
     <div class="subnav">
       <p id="picker-date"><span id="current-month"></span><i class="bi bi-chevron-down"></i></p>
@@ -126,13 +131,23 @@
 <script src="./js/bootstrap.min.js"></script>
 <script src="./js/mescroll.min.js"></script>
 <script src="./js/mPicker.min.js"></script>
+<script src="./js/nprogress.js"></script>
 <script src="./js/base.js"></script>
 <script>
+  $('body').show();
+  NProgress.configure({ showSpinner: false });
+  NProgress.start();
+  document.onreadystatechange = function () {
+    if(document.readyState === 'complete'){
+      NProgress.done();
+    }
+  };
+  
   var params = GetRequest();
   var currentMonth = getCurrentMonth();
   var apiUrl = `${baseUrl}/account/incomeRecord`;
   var record_type = 1;
-  var pageSize = 10;
+  var pageSize = 30;
 
   $(function () {
     $('#goBackHref').attr('href', `./income.html?uid=${params.uid}&token=${params.token}`);
@@ -173,8 +188,9 @@
           "lang": "en"
         },
         success: function (data) {
-          var hasNext = data.list.length <= pageSize;
-          mescroll.endSuccess(data.list.length, hasNext);
+          if (!data.list) {
+            data.list = [];
+          }
           renderData(data.list, isAppend);
         },
         error: function(e) {
@@ -186,7 +202,7 @@
     }
 
     function renderData(curPageData, isAppend) {
-      var hasNext = curPageData.length <= pageSize;
+      var hasNext = curPageData.length === pageSize;
       mescroll.endSuccess(curPageData.length, hasNext);
       var str = '';
       for (var i = 0; i < curPageData.length; i++) {

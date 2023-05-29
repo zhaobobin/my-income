@@ -11,6 +11,7 @@
   <link href="./css/bootstrap-table.min.css" rel="stylesheet">
   <link href="./css/bootstrap-table-fixed-columns.min.css" rel="stylesheet">
   <link href="./css/mpicker.css" rel="stylesheet">
+  <link href="./css/nprogress.css" rel="stylesheet">
   <link href="./css/base.css" rel="stylesheet">
   <style>
     .mPicker-shadow {
@@ -19,13 +20,16 @@
   </style>
 </head>
 
-<body class="daily">
+<body class="daily" style='display: none'>
   <div class="navbar">
-    <a id="goBackHref">
-      <img src="./image/arrow_left.png" alt="arrow">
-    </a>
-    <h1>日报</h1>
-    <a></a>
+    <div class="top"></div>
+    <div class="wrapper">
+      <a id="goBackHref">
+        <img src="./image/arrow_left.png" alt="arrow">
+      </a>
+      <h1>日报</h1>
+      <a></a>
+    </div>
   </div>
   <div class="head">
     <p class="filter" id="filter"><span>选择</span><i class="bi bi-funnel"></i></p>
@@ -41,8 +45,18 @@
 <script src="./js/bootstrap-table.min.js"></script>
 <script src="./js/bootstrap-table-fixed-columns.min.js"></script>
 <script src="./js/daily-picker.js"></script>
+<script src="./js/nprogress.js"></script>
 <script src="./js/base.js"></script>
 <script>
+  $('body').show();
+  NProgress.configure({ showSpinner: false });
+  NProgress.start();
+  document.onreadystatechange = function () {
+    if(document.readyState === 'complete'){
+      NProgress.done();
+    }
+  };
+
   var params = GetRequest();
   var currentMonth = getCurrentMonth();
   var dateList = getAllDays(14);
