@@ -25,10 +25,7 @@
     }
 
     .subnav {
-      display: flex;
-      justify-content: space-between;
       width: 100%;
-      padding: 0 20px;
       font-size: 15px;
       font-weight: 600;
       line-height: 28px;
@@ -38,6 +35,12 @@
       top: calc(60px + constant(safe-area-inset-top));
       top: calc(60px + env(safe-area-inset-top));
       z-index: 99;
+    }
+    .subnav .wrapper {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: #EFF0F4;
     }
     .subnav i {
       margin-left: 5px;
@@ -129,7 +132,7 @@
 
 <body class="income" style='display: none'>
   <div class="outer">
-    <div class="header">
+    <div class="header" id="header">
       <div class="wrapper">
         <a id="goBackHref">
           <img src="./image/arrow_left.png" alt="arrow">
@@ -138,9 +141,11 @@
         <a></a>
       </div>
     </div>
-    <div class="subnav">
-      <p id="picker-date"><span id="current-month"></span><i class="bi bi-chevron-down"></i></p>
-      <p id="instructions" data-toggle="modal" data-target="#exampleModal"><span>说明</span><i class="bi bi-question-circle"></i></p>
+    <div class="subnav" id="subnav">
+      <div class="wrapper">
+        <p id="picker-date"><span id="current-month"></span><i class="bi bi-chevron-down"></i></p>
+        <p id="instructions" data-toggle="modal" data-target="#exampleModal"><span>说明</span><i class="bi bi-question-circle"></i></p>
+      </div>
     </div>
     <div class="mescroll" id="mescroll">
       <div class="next-date">
@@ -174,7 +179,7 @@
 <script src="./js/base.js"></script>
 <script>
   $('body').show();
-  NProgress.configure({ showSpinner: false });
+  NProgress.configure({ showSpinner: false, parent: '#subnav' });
   NProgress.start();
   document.onreadystatechange = function () {
     if(document.readyState === 'complete'){

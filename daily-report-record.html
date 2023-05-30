@@ -103,7 +103,7 @@
 
 <body class="daily-report-record" style='display: none'>
   <div class="outer">
-    <div class="header">
+    <div class="header" id="header">
       <div class="wrapper">
         <a id="goBackHref">
           <img src="./image/arrow_left.png" alt="arrow">
@@ -112,7 +112,7 @@
         <a></a>
       </div>
     </div>
-    <div class="current-date">
+    <div class="current-date" id="subnav">
       <p id="current-date"></p>
     </div>
     <div class="mescroll" id="mescroll">
@@ -128,7 +128,7 @@
 <script src="./js/base.js"></script>
 <script>
   $('body').show();
-  NProgress.configure({ showSpinner: false });
+  NProgress.configure({ showSpinner: false, parent: '#subnav' });
   NProgress.start();
   document.onreadystatechange = function () {
     if(document.readyState === 'complete'){

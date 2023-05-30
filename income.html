@@ -10,16 +10,10 @@
   <link href="./css/bootstrap-icons.css" rel="stylesheet">
   <link href="./css/nprogress.css" rel="stylesheet">
   <link href="./css/base.css" rel="stylesheet">
-  <style>
-    #nprogress .bar {
-      top: calc(60px + constant(safe-area-inset-top));
-      top: calc(60px + env(safe-area-inset-top));
-    }
-  </style>
 </head>
 
 <body class="income" style='display: none'>
-  <div class="header">
+  <div class="header" id="header">
     <div class="wrapper">
       <a id="goBackHref">
         <img src="./image/arrow_left.png" alt="arrow">
@@ -142,7 +136,7 @@
 <script src="./js/base.js"></script>
 <script>
   $('body').show();
-  NProgress.configure({ showSpinner: false });
+  NProgress.configure({ showSpinner: false, parent: '#header' });
   NProgress.start();
   document.onreadystatechange = function () {
     if(document.readyState === 'complete'){

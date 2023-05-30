@@ -21,7 +21,7 @@
 </head>
 
 <body class="daily" style='display: none'>
-  <div class="header">
+  <div class="header" id="header">
     <div class="wrapper">
       <a id="goBackHref">
         <img src="./image/arrow_left.png" alt="arrow">
@@ -30,9 +30,11 @@
       <a></a>
     </div>
   </div>
-  <div class="head">
-    <p class="filter" id="filter"><span>选择</span><i class="bi bi-funnel"></i></p>
-    <p class="id">ID: <span id="uid"></span></p>
+  <div class="subnav" id="subnav">
+    <div class="wrapper">
+      <p class="filter" id="filter"><span>选择</span><i class="bi bi-funnel"></i></p>
+      <p class="id">ID: <span id="uid"></span></p>
+    </div>
   </div>
   <div class="table">
     <table id="table"></table>
@@ -48,7 +50,7 @@
 <script src="./js/base.js"></script>
 <script>
   $('body').show();
-  NProgress.configure({ showSpinner: false });
+  NProgress.configure({ showSpinner: false, parent: '#subnav' });
   NProgress.start();
   document.onreadystatechange = function () {
     if(document.readyState === 'complete'){
@@ -70,7 +72,7 @@
       field: 'deal_date',// 数据 key
       align: 'center',// 居中
       width: 150,
-      // sortable: true,// 排序
+      sortable: true,// 排序
       formatter: function (value, row, index) {
         var date = row.remark === 'Total' ? row.date_str : row.date;
         var href = `./daily-report-record.html?date=${date}&uid=${params.uid}&token=${params.token}`;
